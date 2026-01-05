@@ -1,8 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fist_app/controller/my_animation.dart';
+import 'package:fist_app/controller/myfirebasehelper.dart';
+import 'package:fist_app/firebase_options.dart';
 import 'package:fist_app/view/dashboard.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -186,7 +193,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextButton(
                       onPressed: (){
                         print("Je suis inscrit");
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
+                        Myfirebasehelper().inscription(email: mail.text, password: password.text);
+                       // Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
                       },
                       child: Text("Inscription"),
                     ),
