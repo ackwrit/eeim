@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fist_app/controller/my_animation.dart';
 import 'package:fist_app/controller/myfirebasehelper.dart';
 import 'package:fist_app/firebase_options.dart';
+import 'package:fist_app/globale.dart';
 import 'package:fist_app/view/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -175,7 +176,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text("Connexion"),
                       onPressed: (){
                         print("Je suis connecté");
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
+                        Myfirebasehelper().connexion(email: mail.text, password: password.text).then((onValue){
+                          setState(() {
+                            monUtilisateur = onValue;
+                            Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
+                          });
+
+
+
+                        }).catchError((onError){
+
+                        });
+
 
                       },
                     ),
@@ -193,8 +205,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextButton(
                       onPressed: (){
                         print("Je suis inscrit");
-                        Myfirebasehelper().inscription(email: mail.text, password: password.text);
-                       // Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
+                        Myfirebasehelper().inscription(email: mail.text, password: password.text).then((onValue){
+                          setState(() {
+                            monUtilisateur = onValue;
+                          });
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>MyDashBoard(message: mail.text,)));
+                        });
+
                       },
                       child: Text("Inscription"),
                     ),

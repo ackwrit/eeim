@@ -8,6 +8,7 @@ class Assets {
   static const String imagesGto = 'lib/images/gto.jpg';
   static const String imagesNight = 'lib/images/night.jpg';
   static const String libFirebaseOptions = 'lib/firebase_options.dart';
+  static const String libGlobale = 'lib/globale.dart';
   static const String libMain = 'lib/main.dart';
   static const String modelMyUser = 'lib/model/myUser.dart';
   static const String viewDashboard = 'lib/view/dashboard.dart';

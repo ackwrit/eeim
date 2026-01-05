@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fist_app/model/myUser.dart';
 
 class Myfirebasehelper {
   final auth = FirebaseAuth.instance;
@@ -9,7 +10,7 @@ class Myfirebasehelper {
 
 
   //inscription
-inscription({required String email,required String password, String? pseudo}) async{
+Future<MyUser>inscription({required String email,required String password, String? pseudo}) async{
   UserCredential credential = await auth.createUserWithEmailAndPassword(email: email, password: password);
   String uid = credential.user!.uid;
   Map<String,dynamic> data = {
@@ -18,6 +19,13 @@ inscription({required String email,required String password, String? pseudo}) as
   };
 
   addUser(uid, data);
+  return getUser(uid);
+
+}
+
+Future<MyUser>getUser(String uid) async {
+  DocumentSnapshot snapshot = await cloudUtilisateurs.doc(uid).get();
+  return MyUser.bdd(snapshot);
 
 }
 
@@ -29,8 +37,10 @@ addUser(String uid,Map<String,dynamic> data){
 
 
 //connexion
-  connexion({required String email,required String password}){
-    auth.signInWithEmailAndPassword(email: email, password: password);
+  Future<MyUser>connexion({required String email,required String password}) async{
+    UserCredential credential = await auth.signInWithEmailAndPassword(email: email, password: password);
+    String uid = credential.user!.uid;
+    return getUser(uid);
 
   }
 

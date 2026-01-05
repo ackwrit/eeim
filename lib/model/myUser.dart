@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fist_app/globale.dart';
 
 class MyUser {
   //attributs
@@ -24,7 +25,7 @@ class MyUser {
     mail = data["EMAIL"];
     pseudo = data["PSEUDO"] ?? "Pas de pseudo";
     favoris = data["FAVORIS"] ?? [];
-    avatar = data["AVATAR"] ?? "https://pixabay.com/fr/images/download/goat-9998387_1920.jpg";
+    avatar = data["AVATAR"] ?? imageDefault;
 
 
 
