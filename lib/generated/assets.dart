@@ -14,5 +14,6 @@ class Assets {
   static const String modelMyVideo = 'lib/model/myVideo.dart';
   static const String viewAllNewVideoView = 'lib/view/AllNewVideoView.dart';
   static const String viewDashboard = 'lib/view/dashboard.dart';
+  static const String viewPlayerVideo = 'lib/view/playerVideo.dart';
 
 }

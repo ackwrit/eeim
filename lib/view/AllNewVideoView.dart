@@ -1,5 +1,6 @@
 import 'package:fist_app/controller/myfirebasehelper.dart';
 import 'package:fist_app/model/myVideo.dart';
+import 'package:fist_app/view/playerVideo.dart';
 import 'package:flutter/material.dart';
 
 class Allnewvideoview extends StatefulWidget {
@@ -36,16 +37,21 @@ class _AllnewvideoviewState extends State<Allnewvideoview> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,crossAxisSpacing: 2),
                   itemBuilder: (context,index){
                   MyVideo video = MyVideo(documents[index]);
-                  return Container(
-                    height: 50,
-                    width: 400,
-                    decoration: BoxDecoration(
-                      
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                          image: NetworkImage(video.image!),
-                        fit: BoxFit.fill
-                      )
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyPlayerVideo(video: video)));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: NetworkImage(video.image!),
+                          fit: BoxFit.fill
+                        )
+                      ),
                     ),
                   );
                   }

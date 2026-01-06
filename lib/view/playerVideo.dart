@@ -1,0 +1,68 @@
+import 'package:fist_app/model/myVideo.dart';
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+
+class MyPlayerVideo extends StatefulWidget {
+  MyVideo video;
+  MyPlayerVideo({super.key,required this.video});
+
+  @override
+  State<MyPlayerVideo> createState() => _MyPlayerVideoState();
+}
+
+class _MyPlayerVideoState extends State<MyPlayerVideo> {
+  late VideoPlayerController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller = VideoPlayerController.networkUrl(Uri.parse(widget.video.liens))..initialize().then((onvalue){
+      setState(() {
+
+      });
+    });
+    controller.play();
+    
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.video.titre, style: TextStyle(color: Colors.red),),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+
+            decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+              image: DecorationImage(
+                  image: NetworkImage(widget.video.image!),
+                fit: BoxFit.fill,
+                //colorFilter: ColorFilter.mode(Colors.yellow.withOpacity(0.5), BlendMode.clear)
+              )
+            ),
+
+          ),
+          Center(
+            child: Container(
+              child: VideoPlayer(controller),
+            ),
+          )
+
+        ],
+      ),
+    );
+  }
+}
