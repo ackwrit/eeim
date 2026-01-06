@@ -28,16 +28,25 @@ class _AllnewvideoviewState extends State<Allnewvideoview> {
             }
             else {
               List documents = snap.data!.docs;
-              return ListView.builder(
+              return GridView.builder(
+
+
+                physics: BouncingScrollPhysics(),
                 itemCount: documents.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,crossAxisSpacing: 2),
                   itemBuilder: (context,index){
-                  MyVideo video =MyVideo(documents[index]);
-                  //travailler sur le design
-
-                  return ListTile(
-                    title: Text(video.titre),
-                    subtitle: Text(video.annee.toString()),
-
+                  MyVideo video = MyVideo(documents[index]);
+                  return Container(
+                    height: 50,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                          image: NetworkImage(video.image!),
+                        fit: BoxFit.fill
+                      )
+                    ),
                   );
                   }
               );
