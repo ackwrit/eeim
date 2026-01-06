@@ -6,6 +6,7 @@ import 'package:fist_app/model/myUser.dart';
 class Myfirebasehelper {
   final auth = FirebaseAuth.instance;
   final cloudUtilisateurs = FirebaseFirestore.instance.collection("UTILISATEURS");
+  final cloudVideos= FirebaseFirestore.instance.collection("VIDEOS");
 
 
 

@@ -1,4 +1,5 @@
 import 'package:fist_app/globale.dart';
+import 'package:fist_app/view/AllNewVideoView.dart';
 import 'package:flutter/material.dart';
 
 class MyDashBoard extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
       appBar: AppBar(
         title: Text("Ma nouvelle page"),
       ),
-      body: Text(monUtilisateur.id),
+      body: bodyPage(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
           unselectedItemColor: Colors.grey,
@@ -37,5 +38,15 @@ class _MyDashBoardState extends State<MyDashBoard> {
       ),
 
     );
+  }
+
+  Widget bodyPage(){
+     switch(selectedIndex){
+       case 0 : return Text("home");
+       case 1: return Allnewvideoview();
+       case 2: return Text("Favoris");
+       default: return Text("Erreur");
+     }
+
   }
 }

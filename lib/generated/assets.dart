@@ -11,6 +11,8 @@ class Assets {
   static const String libGlobale = 'lib/globale.dart';
   static const String libMain = 'lib/main.dart';
   static const String modelMyUser = 'lib/model/myUser.dart';
+  static const String modelMyVideo = 'lib/model/myVideo.dart';
+  static const String viewAllNewVideoView = 'lib/view/AllNewVideoView.dart';
   static const String viewDashboard = 'lib/view/dashboard.dart';
 
 }
