@@ -1,4 +1,5 @@
 import 'package:fist_app/controller/myfirebasehelper.dart';
+import 'package:fist_app/globale.dart';
 import 'package:fist_app/model/myVideo.dart';
 import 'package:fist_app/view/playerVideo.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,40 @@ class _AllnewvideoviewState extends State<Allnewvideoview> {
                             image: NetworkImage(video.image!),
                           fit: BoxFit.fill
                         )
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            right: 20,
+                              top: 10,
+                              child: IconButton(
+                                  onPressed: (){
+
+                                    if(monUtilisateur.favoris.contains(video.id)){
+                                      monUtilisateur.favoris.remove(video.id);
+
+                                    }
+                                    else
+                                      {
+                                        monUtilisateur.favoris.add(video.id);
+
+                                      }
+                                    setState(() {
+                                      Map<String,dynamic> data = {
+                                        "FAVORIS":monUtilisateur.favoris
+                                      };
+                                      Myfirebasehelper().updateUser(monUtilisateur.id, data);
+                                    });
+                                    //metttre à jour la base de donnée
+
+
+
+                                  },
+                                  icon: (monUtilisateur.favoris.contains(video.id)?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.red,)
+                              )
+                          ),
+                          )
+                        ],
                       ),
                     ),
                   );

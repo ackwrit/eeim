@@ -35,6 +35,11 @@ addUser(String uid,Map<String,dynamic> data){
 }
 
 
+  updateUser(String uid,Map<String,dynamic> data){
+    cloudUtilisateurs.doc(uid).update(data);
+  }
+
+
 
 
 //connexion
