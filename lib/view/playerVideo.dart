@@ -55,9 +55,45 @@ class _MyPlayerVideoState extends State<MyPlayerVideo> {
             ),
 
           ),
-          Center(
-            child: Container(
-              child: VideoPlayer(controller),
+          Container(
+            child: Column(
+              children: [
+                Container(
+                  height:MediaQuery.of(context).size.height * 0.6,
+                    child: VideoPlayer(controller)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: Icon(Icons.fast_rewind)
+                    ),
+                    IconButton(
+                        onPressed: (){
+                          controller.play();
+
+                        },
+                        icon: Icon(Icons.play_arrow_sharp,size: 50,color: Colors.white,)
+                    ),
+                    IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: Icon(Icons.fast_forward_rounded)
+                    ),
+                  ],
+                ),
+                Slider(
+                    value: 0.5,
+                    onChanged: (value){
+                  setState(() {
+
+                  });
+                    }
+                )
+              ],
             ),
           )
 
