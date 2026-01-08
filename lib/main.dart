@@ -5,12 +5,15 @@ import 'package:fist_app/firebase_options.dart';
 import 'package:fist_app/globale.dart';
 import 'package:fist_app/view/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isConnect = await prefs.getBool("isConnected") ?? false;
   runApp(const MyApp());
 }
 
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: (isConnect)?MyDashBoard(message: "message") :MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

@@ -12,15 +12,31 @@ class MyPlayerVideo extends StatefulWidget {
 
 class _MyPlayerVideoState extends State<MyPlayerVideo> {
   late VideoPlayerController controller;
+  bool isPaused = false;
+  double position = 0;
+  double maxVideo=0;
+  double lecture= 0;
   @override
   void initState() {
     // TODO: implement initState
     controller = VideoPlayerController.networkUrl(Uri.parse(widget.video.liens))..initialize().then((onvalue){
       setState(() {
 
+
+
       });
+      controller.addListener(() {
+        position = controller.value.position.inMilliseconds.toDouble();
+        maxVideo = controller.value.duration.inMilliseconds.toDouble();
+
+      });
+
+
     });
-    controller.play();
+
+
+
+
     
     super.initState();
   }
@@ -67,15 +83,27 @@ class _MyPlayerVideoState extends State<MyPlayerVideo> {
                     IconButton(
                         onPressed: (){
 
+
                         },
                         icon: Icon(Icons.fast_rewind)
                     ),
                     IconButton(
                         onPressed: (){
-                          controller.play();
+                          setState(() {
+                          if(isPaused){
+                            controller.pause();
+
+                          }else {
+                            controller.play();
+                          }
+                          isPaused=!isPaused;
+
+
+                          });
+
 
                         },
-                        icon: Icon(Icons.play_arrow_sharp,size: 50,color: Colors.white,)
+                        icon: Icon((!isPaused)?Icons.play_arrow_sharp:Icons.pause,size: 50,color: Colors.white,)
                     ),
                     IconButton(
                         onPressed: (){
@@ -85,14 +113,20 @@ class _MyPlayerVideoState extends State<MyPlayerVideo> {
                     ),
                   ],
                 ),
-                Slider(
-                    value: 0.5,
+                /*Slider(
+                    value: position/maxVideo,
+                    min: 0,
+                    max: maxVideo/maxVideo,
+
+
                     onChanged: (value){
                   setState(() {
+                    position = controller.value.position.inMilliseconds.toDouble();
+                    position = value;
 
                   });
                     }
-                )
+                )*/
               ],
             ),
           )

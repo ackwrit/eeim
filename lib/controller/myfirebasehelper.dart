@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fist_app/model/myUser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Myfirebasehelper {
   final auth = FirebaseAuth.instance;
@@ -18,6 +19,10 @@ Future<MyUser>inscription({required String email,required String password, Strin
     "EMAIL":email,
     "PSEUDO":pseudo
   };
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  preferences.setString("UID", uid);
+  preferences.setBool("isConnected", true);
+
 
   addUser(uid, data);
   return getUser(uid);
@@ -46,6 +51,9 @@ addUser(String uid,Map<String,dynamic> data){
   Future<MyUser>connexion({required String email,required String password}) async{
     UserCredential credential = await auth.signInWithEmailAndPassword(email: email, password: password);
     String uid = credential.user!.uid;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("UID", uid);
+    preferences.setBool("isConnected", true);
     return getUser(uid);
 
   }
