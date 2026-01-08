@@ -24,11 +24,17 @@ class _MyPlayerVideoState extends State<MyPlayerVideo> {
 
 
 
+
       });
-      controller.addListener(() {
+
+
+
+    });
+    controller.addListener(() {
+      if(!mounted) return;
+      setState(() {
         position = controller.value.position.inMilliseconds.toDouble();
         maxVideo = controller.value.duration.inMilliseconds.toDouble();
-
       });
 
 
@@ -113,20 +119,20 @@ class _MyPlayerVideoState extends State<MyPlayerVideo> {
                     ),
                   ],
                 ),
-                /*Slider(
-                    value: position/maxVideo,
+                if(controller.value.isInitialized)
+                Slider(
+                    value: position.clamp(0, maxVideo),
                     min: 0,
-                    max: maxVideo/maxVideo,
+                    max: maxVideo>0?maxVideo:1,
 
 
                     onChanged: (value){
                   setState(() {
-                    position = controller.value.position.inMilliseconds.toDouble();
-                    position = value;
+                    controller.seekTo(Duration(milliseconds: value.toInt()));
 
                   });
                     }
-                )*/
+                )
               ],
             ),
           )

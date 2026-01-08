@@ -19,6 +19,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
   init() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     uiid = preferences.getString("UID") ?? "";
+    if(!mounted) return;
     monUtilisateur = await Myfirebasehelper().getUser(uiid);
     setState(() {
 
